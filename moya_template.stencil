@@ -37,7 +37,7 @@ extension {{ name }}RPC: TargetType {
     var task: Task {
         switch self {
         {% for interface in interfaces %}
-        case .{{interface.name}}{% if interface.parameters %}({% for parameter in interface.parameters %}{{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}){% endif %}:
+        case .{{interface.name}}{% if interface.parameters %}({% for parameter in interface.parameters %}let {{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}){% endif %}:
             {% if interface.parameters %}
                 {% if interface.queryParameters %}
                     let dict = [{% for parameter in interface.queryParameters %}"{{parameter.name}}": {{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}]

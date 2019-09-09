@@ -13,6 +13,16 @@ class MCodgenParameterModel: Codable {
     let type: String
     let urlQuery: Bool?
     let inPath: Bool?
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        urlQuery = try container.decodeIfPresent(Bool.self, forKey: .urlQuery)
+        inPath = try container.decodeIfPresent(Bool.self, forKey: .inPath)
+        
+        let type = try container.decode(String.self, forKey: .type)
+        self.type = type.lowercased().capitalized
+    }
 }
 
 class MCodgenAPIModel: Codable {
@@ -43,6 +53,14 @@ class MCodgenAttributeModel: Codable {
     let name: String
     let type: String
     let optional: Bool?
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        optional = try container.decodeIfPresent(Bool.self, forKey: .optional)
+        let type = try container.decode(String.self, forKey: .type)
+        self.type = type.lowercased().capitalized
+    }
 }
 
 class MCodgenSubModel: Codable {

@@ -9,7 +9,6 @@
 import Foundation
 
 enum MCError: Error {
-    
     case jsonNotFound
     case parseFail
     case writeFail
