@@ -29,9 +29,12 @@ struct EnvironmentKeys {
 }
 
 struct CommanderOptions {
-    static let template = Option("customTemplate",
+    static let moyatemplate = Option("moyaTemplate",
                                  default: "moya.moyatemplate",
-                                 description: "Using custom template to generate code")
+                                 description: "Using custom moya template to generate code")
+    static let modeltemplate = Option("modelTemplate",
+                                 default: "model.moyatemplate",
+                                 description: "Using custom moya template to generate code")
 }
 
 // Options grouped in struct for readability
@@ -40,11 +43,16 @@ struct CommanderArguments {
     static let outputPath = Argument<String>("outputPath", description: "Output path for the generated file")
 }
 
+struct Default {
+    static let templatePath = "template"
+}
+
 let generate = command(
     CommanderArguments.inputPath,
     CommanderArguments.outputPath,
-    CommanderOptions.template
-) { inputPath, outputPath, template in
+    CommanderOptions.moyatemplate,
+    CommanderOptions.modeltemplate
+) { inputPath, outputPath, moyatemplate, modeltemplate in
     
     let processInfo = ProcessInfo()
     
@@ -60,11 +68,13 @@ let generate = command(
     let sdkRootPath = try processInfo.environmentVariable(name: EnvironmentKeys.sdkRoot)
     let tempDir = try processInfo.environmentVariable(name: EnvironmentKeys.tempDir)
     let platformPath = try processInfo.environmentVariable(name: EnvironmentKeys.platformDir)
-    
-    let inputURL = URL(fileURLWithPath: inputPath)
-    let outputURL = URL(fileURLWithPath: outputPath)
-    
 //
+//    print(targetName)
+//    print(productModuleName)
+//    print(buildProductsDirPath)
+//    print(sourceRootPath)
+//    print(tempDir)
+    
 //    let scriptInputFileCountString = try processInfo.environmentVariable(name: EnvironmentKeys.scriptInputFileCount)
 //    guard let scriptInputFileCount = Int(scriptInputFileCountString) else {
 //        throw ArgumentError.invalidType(value: scriptInputFileCountString, type: "Int", argument: EnvironmentKeys.scriptInputFileCount)
@@ -82,8 +92,13 @@ let generate = command(
 //        .map(EnvironmentKeys.scriptOutputFile)
 //        .map(processInfo.environmentVariable)
  
+    let inputURL = URL(fileURLWithPath: inputPath)
+    let outputURL = URL(fileURLWithPath: outputPath)
+    
+    let templateURL = URL(fileURLWithPath: "\(sourceRootPath)/\(productModuleName)/\(Default.templatePath)")
+    
     do {
-        try MoyaCodgen().generate(input: inputURL, output: outputURL)
+        try MoyaCodgen().generate(input: inputURL, output: outputURL, template: templateURL)
     } catch {
         print(error.localizedDescription)
     }

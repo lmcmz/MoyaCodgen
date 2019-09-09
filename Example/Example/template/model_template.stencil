@@ -1,4 +1,6 @@
+{% if addHeader == true %}
 import Foundation
+{% endif %}
 
 {% for model in models %}
 struct {{model.name}}: Codable {

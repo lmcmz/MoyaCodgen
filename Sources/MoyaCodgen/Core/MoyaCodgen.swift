@@ -11,7 +11,7 @@ import PathKit
 
 open class MoyaCodgen: NSObject {
     
-    func generate(input: URL, output: URL) throws {
+    func generate(input: URL, output: URL, template: URL) throws {
         
         var data: Data
         do {
@@ -22,25 +22,36 @@ open class MoyaCodgen: NSObject {
         }
         
         do {
-            let res = try JSONDecoder().decode(MCodgenModel.self, from: data)
+            let interfaces = try JSONDecoder().decode([MCodgenModel].self, from: data)
             
-            let environment = Environment(loader: FileSystemLoader(paths: [Path("\(FileManager.default.currentDirectoryPath)/Example/template")]))
+            let environment = Environment(loader: FileSystemLoader(paths: [Path(template.absoluteString.replacingOccurrences(of: "file://", with: ""))]))
             
-            print("CCCC")
-            print(environment)
+            var context = ""
             
-            let modelRender = try environment.renderTemplate(name: "model_template.stencil", context: res.dictionary)
-            let moyaRender = try environment.renderTemplate(name: "moya_template.stencil", context: res.dictionary)
+            for (index, interface) in interfaces.enumerated() {
+                var dict = interface.dictionary
+                dict["addHeader"] = index == 0
+                let moyaRender = try environment.renderTemplate(name: "moya_template.stencil", context: dict)
+                dict["addHeader"] = false
+                let modelRender = try environment.renderTemplate(name: "model_template.stencil", context: dict)
+                context.append("\(moyaRender)\(modelRender)")
+                context.append("/* -------------------------- */\n")
+                context.append("// MARK: - \(interface.name)")
+                context.append("/* -------------------------- */\n")
+            }
             
-            print("DDDD")
+            // Generate in single file
+            try writeIfChanged(contents: context, toURL: output)
             
-            let modelPath = URL(fileURLWithPath: "\(res.name.capitalized)Model.swift")
-            try writeIfChanged(contents: modelRender, toURL:  modelPath)
-            try writeIfChanged(contents: moyaRender, toURL: URL(fileURLWithPath: "\(res.name.capitalized)Moya.swift"))
+            // Generate in split file
+            //            let modelPath = URL(fileURLWithPath: "\(res.name.capitalized)Model.swift")
+            //            try writeIfChanged(contents: modelRender, toURL:  modelPath)
+            //            let moyaPath = URL(fileURLWithPath: "\(res.name.capitalized)Moya.swift")
+            //            try writeIfChanged(contents: moyaRender, toURL: )
             
             // TODO Format code
 //            shell("swiftformat", "./\(res.name.capitalized)Model.swift")
-            print("Code generate complete, under the path: \(URL(fileURLWithPath: "").absoluteString)")
+            print("Code generate complete, under the path: \(output.absoluteString)")
             
         } catch {
             throw MCError.parseFail

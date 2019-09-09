@@ -1,29 +1,133 @@
-{
-    "name": "Waves",
-    "baseURL": "https://waves-url.com",
-    "interfaces": [
-        {
-            "name": "balance",
-            "method": "get",
-            "path": "/addresses/balance/\\(address)/0",
-            "parameters": [
-                {
-                    "name": "address",
-                    "type": "String",
-                    "inPath": true
-                }
-            ]
-        }
-    ],
-    "models": [
-        {
-            "name": "WavesBalance",
-            "attributes": [
-                {
-                    "name": "balance",
-                    "type": "Int64"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "name": "Waves",
+        "baseURL": "https://waves-url.com",
+        "interfaces": [
+            {
+                "name": "balance",
+                "method": "get",
+                "path": "/addresses/balance/\\(address)/0",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "type": "String",
+                        "inPath": true
+                    }
+                ]
+            }
+        ],
+        "models": [
+            {
+                "name": "WavesBalance",
+                "attributes": [
+                    {
+                        "name": "balance",
+                        "type": "Int64"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "TestNet",
+        "baseURL": "https://test-url.com",
+        "interfaces": [
+            {
+                "name": "balance",
+                "method": "get",
+                "path": "/addresses/balance/\\(address)/0",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "type": "string",
+                        "inPath": true
+                    },
+                    {
+                        "name": "test",
+                        "type": "iNT",
+                        "urlQuery": true
+                    }
+                ]
+            },
+            {
+                "name": "transaction",
+                "method": "get",
+                "path": "/transactions/info/\\(hash)",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "type": "String"
+                    },
+                    {
+                        "name": "count",
+                        "type": "Int",
+                        "urlQuery": false
+                    }
+                ]
+            },
+            {
+                "name": "broadcast",
+                "method": "post",
+                "path": "/transactions/broadcast",
+                "parameters": [
+                    {
+                        "name": "data",
+                        "type": "Data",
+                        "urlQuery": false
+                    }
+                ]
+            },
+            {
+                "name": "nodeInfo",
+                "method": "get",
+                "path": "/node/status"
+            }
+            
+        ],
+        "models": [
+            {
+                "name": "TestBalance",
+                "attributes": [
+                    {
+                        "name": "balance",
+                        "type": "Int64"
+                    }
+                ]
+            },
+            {
+                "name": "TestSentTransaction",
+                "attributes": [
+                    {
+                        "name": "id",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "TestRPCError",
+                "attributes": [
+                    {
+                        "name": "error",
+                        "type": "Int",
+                        "optional": true
+                    },
+                    {
+                        "name": "message",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "TestInfo",
+                "attributes": [
+                    {
+                        "name": "height",
+                        "type": "Int64",
+                        "optional": false
+                    }
+                ]
+            }
+            
+        ]
+    }
+]

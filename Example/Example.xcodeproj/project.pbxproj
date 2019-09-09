@@ -15,7 +15,26 @@
 		150E617F2326711800AD26CF /* blockchain.json in Resources */ = {isa = PBXBuildFile; fileRef = 150E617E2326711800AD26CF /* blockchain.json */; };
 		150E618823267ADA00AD26CF /* moya_template.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 150E618623267ADA00AD26CF /* moya_template.stencil */; };
 		150E618923267ADA00AD26CF /* model_template.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 150E618723267ADA00AD26CF /* model_template.stencil */; };
+		150E618B23267DD000AD26CF /* MoyaCogen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150E618A23267DD000AD26CF /* MoyaCogen.swift */; };
+		150E619223268F7200AD26CF /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 150E618E23268EAC00AD26CF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		150E619323268F7600AD26CF /* Moya.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 150E618D23268EAC00AD26CF /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		150E619623268F9400AD26CF /* Result.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 150E619423268F8C00AD26CF /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		150E619123268F6300AD26CF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				150E619623268F9400AD26CF /* Result.framework in CopyFiles */,
+				150E619323268F7600AD26CF /* Moya.framework in CopyFiles */,
+				150E619223268F7200AD26CF /* Alamofire.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		150E616823266F4B00AD26CF /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +47,10 @@
 		150E617E2326711800AD26CF /* blockchain.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blockchain.json; sourceTree = "<group>"; };
 		150E618623267ADA00AD26CF /* moya_template.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moya_template.stencil; sourceTree = "<group>"; };
 		150E618723267ADA00AD26CF /* model_template.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = model_template.stencil; sourceTree = "<group>"; };
+		150E618A23267DD000AD26CF /* MoyaCogen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaCogen.swift; sourceTree = "<group>"; };
+		150E618D23268EAC00AD26CF /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = SOURCE_ROOT; };
+		150E618E23268EAC00AD26CF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = SOURCE_ROOT; };
+		150E619423268F8C00AD26CF /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +83,7 @@
 		150E616A23266F4B00AD26CF /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				150E618C23268E9100AD26CF /* framework */,
 				150E618523267ADA00AD26CF /* template */,
 				150E617E2326711800AD26CF /* blockchain.json */,
 				150E616B23266F4B00AD26CF /* AppDelegate.swift */,
@@ -68,6 +92,7 @@
 				150E617223266F4D00AD26CF /* Assets.xcassets */,
 				150E617423266F4D00AD26CF /* LaunchScreen.storyboard */,
 				150E617723266F4D00AD26CF /* Info.plist */,
+				150E618A23267DD000AD26CF /* MoyaCogen.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -81,6 +106,16 @@
 			path = template;
 			sourceTree = "<group>";
 		};
+		150E618C23268E9100AD26CF /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				150E619423268F8C00AD26CF /* Result.framework */,
+				150E618E23268EAC00AD26CF /* Alamofire.framework */,
+				150E618D23268EAC00AD26CF /* Moya.framework */,
+			);
+			path = framework;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -88,10 +123,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 150E617A23266F4D00AD26CF /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
-				150E617D23266F6F00AD26CF /* ShellScript */,
+				150E617D23266F6F00AD26CF /* MoyaCodgen */,
 				150E616423266F4B00AD26CF /* Sources */,
 				150E616523266F4B00AD26CF /* Frameworks */,
 				150E616623266F4B00AD26CF /* Resources */,
+				150E619123268F6300AD26CF /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -152,7 +188,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		150E617D23266F6F00AD26CF /* ShellScript */ = {
+		150E617D23266F6F00AD26CF /* MoyaCodgen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -161,13 +197,14 @@
 			);
 			inputPaths = (
 			);
+			name = MoyaCodgen;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR}/Debug/MoyaCodgen\" generate \"${SRCROOT}/Example/blockchain.json\" \"${SRCROOT}\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR}/Debug/MoyaCodgen\" generate \"${SRCROOT}/Example/blockchain.json\" \"${SRCROOT}/Example/MoyaCogen.swift\"\nif which swiftformat >/dev/null; then\n    swiftformat \"${SRCROOT}/Example/MoyaCogen.swift\"\nelse\n    echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -177,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				150E616E23266F4B00AD26CF /* ViewController.swift in Sources */,
+				150E618B23267DD000AD26CF /* MoyaCogen.swift in Sources */,
 				150E616C23266F4B00AD26CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +363,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47Q6KQQW55;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,6 +385,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47Q6KQQW55;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

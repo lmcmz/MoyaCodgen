@@ -1,5 +1,7 @@
+{% if addHeader == true %}
 import Foundation
 import Moya
+{% endif %}
 
 enum {{ name }}RPC {
     {% for interface in interfaces %}
