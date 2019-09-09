@@ -82,22 +82,16 @@ let generate = command(
 //    let scriptOutputFiles = try (0..<scriptOutputFileCount)
 //        .map(EnvironmentKeys.scriptOutputFile)
 //        .map(processInfo.environmentVariable)
+ 
+    do {
+        try MoyaCodgen().generate(input: "", output: "")
+    } catch {
+        print(error.localizedDescription)
+    }
     
-    try MoyaCodgen().generate(input: "", output: "")
 }
-
 
 // Start parsing the launch arguments
 let group = Group()
 group.addCommand("generate", "Generates Moya file", generate)
 group.run()
-
-
-//let sourcePath = Path(#file) + ".."
-//
-//do {
-//    let url = URL(fileURLWithPath: "./test.swift")
-//    try "AAA".write(to: url, atomically: true, encoding: .utf8)
-//} catch {
-//    print(error)
-//}

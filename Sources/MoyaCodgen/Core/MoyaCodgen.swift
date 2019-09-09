@@ -14,12 +14,12 @@ open class MoyaCodgen: NSObject {
     func generate(input: String, output: String) throws {
         
         guard let jsonPath = Bundle.main.url(forResource: "blockchain", withExtension: "json") else {
+            print("You might need to place blockchain.json file under: \(FileManager.default.currentDirectoryPath)")
             throw MCError.jsonNotFound
         }
         
         do {
             let data = try Data(contentsOf: jsonPath)
-//            let jsonObj = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
             let res = try JSONDecoder().decode(MCodgenModel.self, from: data)
             
             let environment = Environment(loader: FileSystemLoader(bundle: [Bundle.main]))
@@ -32,8 +32,8 @@ open class MoyaCodgen: NSObject {
             
             // TODO Format code
 //            shell("swiftformat", "./\(res.name.capitalized)Model.swift")
-            
             print("Code generate complete, under the path: \(URL(fileURLWithPath: "").absoluteString)")
+            
         } catch {
             throw MCError.parseFail
         }
