@@ -36,11 +36,12 @@ It will format the generate code
 
 **Input**
 ```json
-{
+[ 
+  {
     "name": "Waves",
     "baseURL": "https://waves-url.com",
     "interfaces": [
-        {
+        
             "name": "balance",
             "method": "get",
             "path": "/addresses/balance/\\(address)/0",
@@ -65,6 +66,7 @@ It will format the generate code
         }
       ]
   }
+]
 ```
 
 **Output**
