@@ -83,7 +83,7 @@ let generate = command(
 //        .map(EnvironmentKeys.scriptOutputFile)
 //        .map(processInfo.environmentVariable)
     
-    try MoyaCodgen.generate(input: "", output: "")
+    try MoyaCodgen().generate(input: "", output: "")
 }
 
 
