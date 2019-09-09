@@ -44,12 +44,12 @@ struct CommanderArguments {
 }
 
 let generate = command(
-    CommanderOptions.template,
+//    CommanderOptions.template,
+//    CommanderArguments.outputPath
+) {
+//    template, outputPath in
     
-    CommanderArguments.outputPath
-) { template, outputPath in
-    
-    let processInfo = ProcessInfo()
+//    let processInfo = ProcessInfo()
     
     // TODO Cache last run, if not change, avoid generate again
     
