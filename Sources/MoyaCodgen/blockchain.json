@@ -1,0 +1,98 @@
+{
+    "name": "Waves",
+    "baseURL": "https://waves-url.com",
+    "interfaces": [
+        {
+            "name": "balance",
+            "method": "get",
+            "path": "/addresses/balance/\\(address)/0",
+            "parameters": [
+                {
+                    "name": "address",
+                    "type": "String",
+                    "inPath": true
+                },
+                {
+                    "name": "test",
+                    "type": "String",
+                    "urlQuery": false
+                }
+            ]
+        },
+        {
+            "name": "transaction",
+            "method": "get",
+            "path": "/transactions/info/\\(hash)",
+            "parameters": [
+                {
+                    "name": "hash",
+                    "type": "String",
+                    "urlQuery": true
+                }
+            ]
+        },
+        {
+            "name": "broadcast",
+            "method": "post",
+            "path": "/transactions/broadcast",
+            "parameters": [
+                {
+                    "name": "data",
+                    "type": "Data",
+                    "urlQuery": false
+                }
+            ]
+        },
+        {
+            "name": "nodeInfo",
+            "method": "get",
+            "path": "/node/status"
+        }
+        
+    ],
+    "models": [
+        {
+            "name": "WavesBalance",
+            "attributes": [
+                {
+                    "name": "balance",
+                    "type": "Int64"
+                }
+            ]
+        },
+        {
+            "name": "WavesSentTransaction",
+            "attributes": [
+                {
+                    "name": "id",
+                    "type": "String"
+                }
+            ]
+        },
+        {
+            "name": "WavesRPCError",
+            "attributes": [
+                {
+                    "name": "error",
+                    "type": "Int",
+                    "optional": true
+                },
+                {
+                    "name": "message",
+                    "type": "String"
+                },
+            ]
+        },
+        {
+            "name": "WavesTransactionInfo",
+            "attributes": [
+                {
+                    "name": "height",
+                    "type": "Int64",
+                    "optional": false
+                }
+            ]
+        }
+        
+    ]
+}
