@@ -7,21 +7,30 @@ MoyaCodgen is a swift generator using **[Stencil](https://github.com/stencilproj
 ```
 swift package update
 swift package generate-xcodeproj
-open MoyaCodgen.xcodeproj
+open MoyaCodgenExample.xcworkspace
 ```
 
-2. To run this project, you need move `blockchain.json` and `*.template` to project document folder, which will show up if the file isn't find.
+2. Run the **`MoyaCodgen`** command firstly in Xcode:
+![1.png](./image/1.png)
 
-3.. The generate file will be the folder as well, check `*.swift` file
+3. Run the **`Example`** App in Xcode
 
+4. Check the `MoyaCodgen.swift` file
 
 ## TODO
 
-- [ ] Remove manual operation 
 - [ ] Cocaopod support
 - [ ] More Moya medthod support
 - [ ] Format generate code
 - [ ] Avoid override file
+
+## Optional *
+To generate a better code result, I highlt recommand you to install [SwiftFormat](https://github.com/nicklockwood/SwiftFormat).
+```shell
+brew install swiftformat
+```
+It will format the generate code
+![2.png](./image/2.png)
 
 ## Example
 
