@@ -15,7 +15,7 @@
                 {
                     "name": "test",
                     "type": "String",
-                    "urlQuery": false
+                    "urlQuery": true
                 }
             ]
         },
@@ -27,7 +27,6 @@
                 {
                     "name": "hash",
                     "type": "String",
-                    "urlQuery": true
                 }
             ]
         },

@@ -28,7 +28,7 @@ open class MoyaCodgen: NSObject {
             
             let modelPath = URL(fileURLWithPath: "\(res.name.capitalized)Model.swift")
             try writeIfChanged(contents: modelRender, toURL:  modelPath)
-            try writeIfChanged(contents: moyaRender, toURL: URL(fileURLWithPath: "\(res.name.capitalized)moya.swift"))
+            try writeIfChanged(contents: moyaRender, toURL: URL(fileURLWithPath: "\(res.name.capitalized)Moya.swift"))
             
             // TODO Format code
 //            shell("swiftformat", "./\(res.name.capitalized)Model.swift")
