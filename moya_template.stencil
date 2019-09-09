@@ -1,0 +1,59 @@
+import Foundation
+import Moya
+
+enum {{ name }}RPC {
+    {% for interface in interfaces %}
+    case {{interface.name}}{% if interface.parameters %}({% for parameter in interface.parameters %}{{parameter.type}}{%ifnot forloop.last%}, {%endif%}{% endfor %}){% endif %}
+    {% endfor %}
+}
+
+extension {{ name }}RPC: TargetType {
+    var baseURL: URL {
+        return URL(string:"{{ baseURL }}")!
+    }
+
+    var path: String {
+        switch self {
+        {% for interface in interfaces %}
+        case .{{interface.name}}{% if interface.parameters %}({% for parameter in interface.parameters %}let {{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}){% endif %}:
+            return "{{interface.path}}"
+        {% endfor %}
+        }
+    }
+
+    var method: Moya.Method {
+        switch self {
+        {% for interface in interfaces %}
+        case .{{interface.name}}:
+            return .{{interface.method}}
+        {% endfor %}
+        }
+    }
+
+    var sampleData: Data {
+        return Data()
+    }
+
+    var task: Task {
+        switch self {
+        {% for interface in interfaces %}
+        case .{{interface.name}}{% if interface.parameters %}({% for parameter in interface.parameters %}{{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}){% endif %}:
+            {% if interface.parameters %}
+                let dict = [{% for parameter in interface.parameters %}"{{parameter.name}}": {{parameter.name}}{%ifnot forloop.last%}, {%endif%}{% endfor %}]
+                {% for parameter in interface.parameters %}{% if forloop.last.urlQuery%}{% if forloop.last.urlQuery == true %}
+                    return .requestParameters(parameters: dict, encoding: URLEncoding.queryString)
+                    {% else %}
+                    return .requestParameters(parameters: dict, encoding: JSONEncoding.default)
+                    {% endif %}{% endif %}{% endfor %}
+            {% else %}
+            return .requestPlain{% endif %}
+        {% endfor %}
+        }
+    }
+
+    var headers: [String: String]? {
+        return [
+            "content-type": "application/json",
+        ]
+    }
+}
