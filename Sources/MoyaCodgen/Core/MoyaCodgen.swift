@@ -11,20 +11,28 @@ import PathKit
 
 open class MoyaCodgen: NSObject {
     
-    func generate(input: String, output: String) throws {
+    func generate(input: URL, output: URL) throws {
         
-        guard let jsonPath = Bundle.main.url(forResource: "blockchain", withExtension: "json") else {
-            print("You might need to place blockchain.json file under: \(FileManager.default.currentDirectoryPath)")
+        var data: Data
+        do {
+            data = try Data(contentsOf: input)
+        } catch {
+            print("You might need to place json file under: \(FileManager.default.currentDirectoryPath)")
             throw MCError.jsonNotFound
         }
         
         do {
-            let data = try Data(contentsOf: jsonPath)
             let res = try JSONDecoder().decode(MCodgenModel.self, from: data)
             
-            let environment = Environment(loader: FileSystemLoader(bundle: [Bundle.main]))
+            let environment = Environment(loader: FileSystemLoader(paths: [Path("\(FileManager.default.currentDirectoryPath)/Example/template")]))
+            
+            print("CCCC")
+            print(environment)
+            
             let modelRender = try environment.renderTemplate(name: "model_template.stencil", context: res.dictionary)
             let moyaRender = try environment.renderTemplate(name: "moya_template.stencil", context: res.dictionary)
+            
+            print("DDDD")
             
             let modelPath = URL(fileURLWithPath: "\(res.name.capitalized)Model.swift")
             try writeIfChanged(contents: modelRender, toURL:  modelPath)

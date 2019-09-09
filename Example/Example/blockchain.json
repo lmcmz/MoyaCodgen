@@ -1,0 +1,29 @@
+{
+    "name": "Waves",
+    "baseURL": "https://waves-url.com",
+    "interfaces": [
+        {
+            "name": "balance",
+            "method": "get",
+            "path": "/addresses/balance/\\(address)/0",
+            "parameters": [
+                {
+                    "name": "address",
+                    "type": "String",
+                    "inPath": true
+                }
+            ]
+        }
+    ],
+    "models": [
+        {
+            "name": "WavesBalance",
+            "attributes": [
+                {
+                    "name": "balance",
+                    "type": "Int64"
+                }
+            ]
+        }
+    ]
+}

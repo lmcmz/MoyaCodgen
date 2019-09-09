@@ -29,10 +29,6 @@ struct EnvironmentKeys {
 }
 
 struct CommanderOptions {
-//    static let uiTest = Option("generateUITestFile",
-//                               default: "",
-//                               description: "Output path for an extra generated file that contains resources commonly used in UI tests such as accessibility identifiers")
-    
     static let template = Option("customTemplate",
                                  default: "moya.moyatemplate",
                                  description: "Using custom template to generate code")
@@ -40,31 +36,34 @@ struct CommanderOptions {
 
 // Options grouped in struct for readability
 struct CommanderArguments {
+    static let inputPath = Argument<String>("inputPath", description: "Input path for json file")
     static let outputPath = Argument<String>("outputPath", description: "Output path for the generated file")
 }
 
 let generate = command(
-//    CommanderOptions.template,
-//    CommanderArguments.outputPath
-) {
-//    template, outputPath in
+    CommanderArguments.inputPath,
+    CommanderArguments.outputPath,
+    CommanderOptions.template
+) { inputPath, outputPath, template in
     
-//    let processInfo = ProcessInfo()
+    let processInfo = ProcessInfo()
     
     // TODO Cache last run, if not change, avoid generate again
     
-//    let xcodeprojPath = try processInfo.environmentVariable(name: EnvironmentKeys.xcodeproj)
-//    let targetName = try processInfo.environmentVariable(name: EnvironmentKeys.target)
-//    let bundleIdentifier = try processInfo.environmentVariable(name: EnvironmentKeys.bundleIdentifier)
-//    let productModuleName = try processInfo.environmentVariable(name: EnvironmentKeys.productModuleName)
-//    let buildProductsDirPath = try processInfo.environmentVariable(name: EnvironmentKeys.buildProductsDir)
-//    let developerDirPath = try processInfo.environmentVariable(name: EnvironmentKeys.developerDir)
-//    let sourceRootPath = try processInfo.environmentVariable(name: EnvironmentKeys.sourceRoot)
-//    let sdkRootPath = try processInfo.environmentVariable(name: EnvironmentKeys.sdkRoot)
-//    let tempDir = try processInfo.environmentVariable(name: EnvironmentKeys.tempDir)
-//    let platformPath = try processInfo.environmentVariable(name: EnvironmentKeys.platformDir)
-//
-//    let outputURL = URL(fileURLWithPath: outputPath)
+    let xcodeprojPath = try processInfo.environmentVariable(name: EnvironmentKeys.xcodeproj)
+    let targetName = try processInfo.environmentVariable(name: EnvironmentKeys.target)
+    let bundleIdentifier = try processInfo.environmentVariable(name: EnvironmentKeys.bundleIdentifier)
+    let productModuleName = try processInfo.environmentVariable(name: EnvironmentKeys.productModuleName)
+    let buildProductsDirPath = try processInfo.environmentVariable(name: EnvironmentKeys.buildProductsDir)
+    let developerDirPath = try processInfo.environmentVariable(name: EnvironmentKeys.developerDir)
+    let sourceRootPath = try processInfo.environmentVariable(name: EnvironmentKeys.sourceRoot)
+    let sdkRootPath = try processInfo.environmentVariable(name: EnvironmentKeys.sdkRoot)
+    let tempDir = try processInfo.environmentVariable(name: EnvironmentKeys.tempDir)
+    let platformPath = try processInfo.environmentVariable(name: EnvironmentKeys.platformDir)
+    
+    let inputURL = URL(fileURLWithPath: inputPath)
+    let outputURL = URL(fileURLWithPath: outputPath)
+    
 //
 //    let scriptInputFileCountString = try processInfo.environmentVariable(name: EnvironmentKeys.scriptInputFileCount)
 //    guard let scriptInputFileCount = Int(scriptInputFileCountString) else {
@@ -84,7 +83,7 @@ let generate = command(
 //        .map(processInfo.environmentVariable)
  
     do {
-        try MoyaCodgen().generate(input: "", output: "")
+        try MoyaCodgen().generate(input: inputURL, output: outputURL)
     } catch {
         print(error.localizedDescription)
     }
