@@ -1,5 +1,7 @@
 # MoyaCodgen
 
+MoyaCodgen is a swift generator using **[Stencil](https://github.com/stencilproject/Stencil)** template to generate network requesting code for **[Moya](https://github.com/Moya/Moya)** framework. The input of th framework is a json file, the rule will be added later.
+
 ## How to run
 1. Install denpencies, 
 ```
